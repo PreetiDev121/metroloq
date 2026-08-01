@@ -1,0 +1,119 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    wordpress-phpmyadmin-80-http:
+      entrypoints:
+        - http-8036
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-phpmyadmin-80"
+      tls: false
+      # middlewares:
+      #   - "wordpress-redirectHttps"
+    wordpress-web-80-http:
+      entrypoints:
+        - http-80
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-web-80"
+      tls: false
+      # middlewares:
+      #   - "wordpress-redirectHttps"
+    wordpress-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-web-8025"
+      tls: false
+      # middlewares:
+      #   - "wordpress-redirectHttps"
+    wordpress-xhgui-80-http:
+      entrypoints:
+        - http-8143
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-xhgui-80"
+      tls: false
+      # middlewares:
+      #   - "wordpress-redirectHttps"
+    
+    
+    wordpress-phpmyadmin-80-https:
+      entrypoints:
+        - http-8037
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-phpmyadmin-80"
+      
+      tls: true
+      
+    
+    
+    wordpress-web-80-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-web-80"
+      
+      tls: true
+      
+    wordpress-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-web-8025"
+      
+      tls: true
+      
+    
+    wordpress-xhgui-80-https:
+      entrypoints:
+        - http-8142
+      rule: HostRegexp(`^wordpress\.ddev\.site$`)
+      
+      service: "wordpress-xhgui-80"
+      
+      tls: true
+      
+    
+
+  middlewares:
+    wordpress-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    wordpress-phpmyadmin-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-wordpress-phpmyadmin:80
+        
+    
+    wordpress-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-wordpress-web:80
+        
+    wordpress-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-wordpress-web:8025
+        
+    
+    
+    wordpress-xhgui-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-wordpress-xhgui:80
+        
+    
+    
+
